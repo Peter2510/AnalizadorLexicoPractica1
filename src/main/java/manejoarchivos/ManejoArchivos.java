@@ -14,12 +14,12 @@ import javax.swing.JOptionPane;
  * @author GORDILLO G
  */
 public class ManejoArchivos {
-    
-    private static String texto = "";
-    private static String lectura;
-    private static int seleccion;
 
-    public static void crearArchivo(String nombreArchivo) {
+    private String texto = "";
+    private String lectura;
+    private int seleccion;
+
+    public void crearArchivo(String nombreArchivo) {
 
         File archivo = new File(nombreArchivo);
 
@@ -33,7 +33,7 @@ public class ManejoArchivos {
 
     }
 
-    public static void escribirArchivo(String nombreArchivo, String contenido) {
+    public void escribirArchivo(String nombreArchivo, String contenido) {
 
         File archivo = new File(nombreArchivo);
 
@@ -48,7 +48,7 @@ public class ManejoArchivos {
 
     }
 
-    public static void AgregarAlArchivo(String nombreArchivo, String contenido) {
+    public void AgregarAlArchivo(String nombreArchivo, String contenido) {
 
         File archivo = new File(nombreArchivo);
 
@@ -65,8 +65,7 @@ public class ManejoArchivos {
 
     }
 
-    public static void leerArchivo() {
-
+    public void leerArchivo() {
 
         try {
             JFileChooser fc = new JFileChooser();
@@ -118,7 +117,25 @@ public class ManejoArchivos {
 
     }
 
-    public static String getLectura() {
+    public String getLectura() {
         return texto;
+    }
+
+    public void guardarArchivo(String lectura) {
+
+        JFileChooser ventanaSeleccionar = new JFileChooser();
+
+        if (ventanaSeleccionar.showDialog(null, "Guardar") == JFileChooser.APPROVE_OPTION) {
+            File archivo;
+            archivo = ventanaSeleccionar.getSelectedFile();
+
+            crearArchivo(archivo.getAbsolutePath() + ".txt");
+            AgregarAlArchivo(archivo.getAbsolutePath() + ".txt", lectura);
+
+            System.out.println("Archivo creado en " + archivo.getAbsolutePath());
+
+            System.out.println("Nombre del archivo" + archivo.getName());
+
+        }
     }
 }
