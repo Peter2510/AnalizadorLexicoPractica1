@@ -125,9 +125,12 @@ public class Inicial extends javax.swing.JFrame {
         
         ManejoArchivos manejo = new ManejoArchivos();
         
-       manejo.leerArchivo();
-       txt.setText(manejo.getLectura());
-        
+       //manejo.leerArchivo();
+       //txt.setText(manejo.getLectura());
+       //System.out.println(manejo.getLectura());
+       
+       manejo.leerArchivoLinea();
+       
     }//GEN-LAST:event_cargarArchivoActionPerformed
 
     private void AnalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnalizarActionPerformed
@@ -156,6 +159,6 @@ public class Inicial extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea txt;
+    public static javax.swing.JTextArea txt;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,6 +5,7 @@
  */
 package manejoarchivos;
 
+import Ventanas.Inicial;
 import java.io.*;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -137,5 +138,57 @@ public class ManejoArchivos {
             System.out.println("Nombre del archivo" + archivo.getName());
 
         }
+    }
+
+    public String leerArchivoLinea() {
+        
+      
+
+        try {
+            JFileChooser fc = new JFileChooser();
+
+            seleccion = fc.showOpenDialog(fc);
+
+            if (seleccion == JFileChooser.APPROVE_OPTION) {
+
+                File fichero = fc.getSelectedFile();
+
+               
+
+                if (fichero.exists()) {
+
+                    try {
+
+                        BufferedReader entrada = new BufferedReader(new FileReader(fichero));
+
+                        String linea = entrada.readLine();
+                       
+                       while(linea !=null){
+                           System.out.println(linea);
+                           Inicial.txt.append(linea + "\n");
+                           linea = entrada.readLine();
+                       }
+
+                        entrada.close();
+
+                    } catch (FileNotFoundException ex) {
+                        ex.printStackTrace(System.out);
+                    } catch (NullPointerException e) {
+                        System.out.println("Wu");
+                    } catch (NumberFormatException ex) {
+
+                    } catch (IOException ex) {
+                        ex.printStackTrace(System.out);
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "El archivo no existe");
+                }
+
+            }
+        } catch (Exception e) {
+        }
+        return null;
+
     }
 }
