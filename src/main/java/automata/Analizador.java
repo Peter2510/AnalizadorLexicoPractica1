@@ -12,7 +12,9 @@ package automata;
 public class Analizador {
 
     int cantidadLineas = 0;
+    int posicion = 0;
     int matriz[][] = new int[9][6];
+    
     
     public void InicializarMatriz(){
     
@@ -44,35 +46,31 @@ public class Analizador {
     }
 
     public void getToken(String linea, int numeroLinea) {
-        int posicion = 0;
+        
         boolean lectura = true;
+        
         System.out.println("no. linea: " + numeroLinea + " texto: " + linea);
         System.out.println("cantidad de caracters:" + linea.length());
 
         //validando el texto ingresado
         
-        
-        while(posicion<linea.length()){
+        while((posicion<linea.length())&&(lectura==true)){
             
             if (Character.isSpaceChar(linea.charAt(posicion))) {
                 
+                System.out.println("ando en la posicion: " +posicion);
+                
             }
             else{
-                if(Character.isLetter(linea.charAt(posicion))){
-                    System.out.println(matriz[0][0]);
-                    System.out.println("El caracter es una letra");
-                }else{
-                    System.out.println(matriz[0][1]);
-                    System.out.println("el caracter es un numero");
-                }
-                System.out.println("caracter:"+linea.charAt(posicion));
+               
+                System.out.println("no. caracter "+ posicion+"caracter:"+linea.charAt(posicion));
                 
             }
             
             posicion++;
         }
         
-
+        posicion=0;
     }
 
 }
