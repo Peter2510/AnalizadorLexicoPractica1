@@ -17,9 +17,8 @@ public class Inicial extends javax.swing.JFrame {
     /**
      * Creates new form Inicial
      */
-    
     NumeroLinea numeroLinea;
-    
+
     public Inicial() {
         initComponents();
         numeroLinea = new NumeroLinea(txt);
@@ -44,7 +43,8 @@ public class Inicial extends javax.swing.JFrame {
         Guardar = new javax.swing.JButton();
         analizar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        MenuCargar = new javax.swing.JMenu();
+        menuLimpiar = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -102,13 +102,21 @@ public class Inicial extends javax.swing.JFrame {
                 .addGap(35, 35, 35))
         );
 
-        jMenu1.setText("Cargar archivo");
-        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+        MenuCargar.setText("Cargar archivo");
+        MenuCargar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu1MouseClicked(evt);
+                MenuCargarMouseClicked(evt);
             }
         });
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(MenuCargar);
+
+        menuLimpiar.setText("Eliminar texto");
+        menuLimpiar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuLimpiarMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(menuLimpiar);
 
         setJMenuBar(jMenuBar1);
 
@@ -127,38 +135,58 @@ public class Inicial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
-      
-      ManejoArchivos manejo = new ManejoArchivos();
-      String lectura = txt.getText();
-      manejo.guardarArchivo(lectura);
-        
+
+        ManejoArchivos manejo = new ManejoArchivos();
+        String lectura = txt.getText();
+        manejo.guardarArchivo(lectura);
+
     }//GEN-LAST:event_GuardarActionPerformed
 
-    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+    private void MenuCargarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuCargarMouseClicked
 
         ManejoArchivos manejo = new ManejoArchivos();
 
         manejo.leerArchivoLinea();
-    }//GEN-LAST:event_jMenu1MouseClicked
+    }//GEN-LAST:event_MenuCargarMouseClicked
 
     private void analizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analizarActionPerformed
-        String lectura = txt.getText();
-        Analizador analizar = new Analizador();
+        
+        
+         String lectura = txt.getText();
+ 
+         String[] lineas = lectura.split("\n");
+         
+         Analizador analizar = new Analizador(lineas.length);
+         
+         
+         
+         for (int i = 0; i < lineas.length; i++) {
+             System.out.println("mande linea " + i);
+             analizar.getToken(lineas[i],i);
+   
+        }
+         
+         
+        
     }//GEN-LAST:event_analizarActionPerformed
+
+    private void menuLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuLimpiarMouseClicked
+        txt.setText("");
+    }//GEN-LAST:event_menuLimpiarMouseClicked
 
     /**
      * @param args the command line arguments
      */
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Guardar;
+    private javax.swing.JMenu MenuCargar;
     private javax.swing.JButton analizar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JMenu menuLimpiar;
     public static javax.swing.JTextArea txt;
     // End of variables declaration//GEN-END:variables
 }

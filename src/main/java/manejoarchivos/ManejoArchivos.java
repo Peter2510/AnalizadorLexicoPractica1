@@ -140,9 +140,7 @@ public class ManejoArchivos {
         }
     }
 
-    public String leerArchivoLinea() {
-        
-      
+    public void leerArchivoLinea() {
 
         try {
             JFileChooser fc = new JFileChooser();
@@ -153,8 +151,6 @@ public class ManejoArchivos {
 
                 File fichero = fc.getSelectedFile();
 
-               
-
                 if (fichero.exists()) {
 
                     try {
@@ -162,12 +158,12 @@ public class ManejoArchivos {
                         BufferedReader entrada = new BufferedReader(new FileReader(fichero));
 
                         String linea = entrada.readLine();
-                       
-                       while(linea !=null){
-                           System.out.println(linea);
-                           Inicial.txt.append(linea + "\n");
-                           linea = entrada.readLine();
-                       }
+
+                        while (linea != null) {
+                            
+                            Inicial.txt.append(linea + "\n");
+                            linea = entrada.readLine();
+                        }
 
                         entrada.close();
 
@@ -188,7 +184,6 @@ public class ManejoArchivos {
             }
         } catch (Exception e) {
         }
-        return null;
 
     }
 }
