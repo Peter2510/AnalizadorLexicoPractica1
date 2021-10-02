@@ -6,6 +6,7 @@
 package Ventanas;
 
 import automata.Analizador;
+import automata.Analizar;
 import manejoarchivos.ManejoArchivos;
 
 /**
@@ -160,10 +161,12 @@ public class Inicial extends javax.swing.JFrame {
          
          
          
+         
          for (int i = 0; i < lineas.length; i++) {
              System.out.println("mande linea " + i);
              analizar.getToken(lineas[i],i);
-   
+             Analizar n = new Analizar(lineas[i],i);
+         
         }
          
          
