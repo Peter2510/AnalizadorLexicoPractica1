@@ -13,6 +13,8 @@ import manejoarchivos.ManejoArchivos;
  */
 public class Analizar {
     
+    
+   
     int numeroLinea;
     int cantidadLineas = 0;
     int posicion = 0;
@@ -36,7 +38,7 @@ public class Analizar {
         //aceptacion
         // id -->1 y 2 , entero --> 3 , decimal -->5, puntuacion--> 6, Operador -->7, agrupacion -->8
         
-        // 10 error
+        // 10 error y 4
                
         //estados de aceptacion 
         //id --> 1,2      entero--> 3    decimal --> 5    puntuacion --> 6   
@@ -57,6 +59,7 @@ public class Analizar {
     }
 
     public Analizar(String linea, int numeroLinea) {
+        
         this.cantidadLineas = cantidadLineas;
         this.linea = linea;
         this.numeroLinea = numeroLinea;
@@ -94,6 +97,7 @@ public class Analizar {
                 System.out.println("Estado actual "+ estadoActual + "caracter: " + linea.charAt(posicion)+ " transicion a: " + estadoTemporal);
                 //System.out.println("no. caracter "+ posicion+" caracter: "+linea.charAt(posicion));
                 //System.out.println("Sin espacio:" + linea.charAt(posicion));
+               
                 estadoActual = estadoTemporal;
             }
             //System.out.println("palabra completa sin espacios: "+tmp);
@@ -102,26 +106,25 @@ public class Analizar {
         }
         System.out.println("Termino en el estado " + estadoActual + " con el id " + tmp);
         
+        
         //verificar estado de aceptacion
     }
     
     
     // moverse entre estados
     public int getSiguienteEstado(int estadoActual, int caracter){
-        int resultado = -1;        
+        int resultado = 10;        
         
         if(caracter >=0 && caracter <=5){
             resultado = matriz[estadoActual][caracter];
         }
-        
-        
-        
+    
         return resultado;
     }
     
     // alfabeto del automata
     public int getIntCaracter(char caracter){
-        int resultado = -1;
+        int resultado = 10;
         
         if(Character.isLetter(caracter)){
             resultado =0;
@@ -148,7 +151,6 @@ public class Analizar {
         }else if(caracter == '%'){
             resultado = 4;
         }
-        
         
         return resultado;
     }
