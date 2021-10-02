@@ -5,28 +5,24 @@
  */
 package automata;
 
-import manejoarchivos.ManejoArchivos;
-
 /**
  *
  * @author GORDILLO G
  */
 public class Analizar {
     
-    
-   
     int numeroLinea;
     int cantidadLineas = 0;
     int posicion = 0;
-    int matriz[][] = new int[11][6];
+    int estados[][] = new int[11][6];
     String linea;
     int estadoActual =0;
     
     
-    public void InicializarMatriz(){
     
-
-         // filas del 0 al 5
+    public void InicializarMatriz(){
+   
+        // filas del 0 al 5
         //columnas del 0 al 6
         
         //estado inicial 0
@@ -46,16 +42,18 @@ public class Analizar {
         
         
         //matriz[estado][caracter]=estado;
-        matriz[0][0]=1;     matriz[0][1]=3;       matriz[0][2]=6;       matriz[0][3]=8;     matriz[0][4]=7;     matriz[0][5]=6;
-        matriz[1][0]=1;     matriz[1][1]=2;       matriz[1][2]=10;      matriz[1][3]=10;    matriz[1][4]=10;    matriz[1][5]=10;
-        matriz[2][0]=2;     matriz[2][1]=2;       matriz[2][2]=10;      matriz[2][3]=10;    matriz[2][4]=10;    matriz[2][5]=10;
-        matriz[3][0]=10;    matriz[3][1]=3;       matriz[3][2]=10;      matriz[3][3]=10;    matriz[3][4]=10;    matriz[3][5]=4;
-        matriz[4][0]=10;    matriz[4][1]=5;       matriz[4][2]=10;      matriz[4][3]=10;    matriz[4][4]=10;    matriz[4][5]=10;
-        matriz[5][0]=10;    matriz[5][1]=5;       matriz[5][2]=10;      matriz[5][3]=10;    matriz[5][4]=10;    matriz[5][5]=10;
-        matriz[6][0]=10;    matriz[6][1]=10;      matriz[6][2]=10;      matriz[6][3]=10;    matriz[6][4]=10;    matriz[6][5]=10;
-        matriz[7][0]=10;    matriz[7][1]=10;      matriz[7][2]=10;      matriz[7][3]=10;    matriz[7][4]=10;    matriz[7][5]=10;
-        matriz[8][0]=10;    matriz[8][1]=10;      matriz[8][2]=10;      matriz[8][3]=10;    matriz[8][4]=10;    matriz[8][5]=10;
-        matriz[10][0]=10;   matriz[10][1]=10;     matriz[10][2]=10;     matriz[10][3]=10;   matriz[10][4]=10;   matriz[10][5]=10;
+        estados[0][0]=1;     estados[0][1]=3;       estados[0][2]=6;       estados[0][3]=8;     estados[0][4]=7;     estados[0][5]=6;
+        estados[1][0]=1;     estados[1][1]=2;       estados[1][2]=10;      estados[1][3]=10;    estados[1][4]=10;    estados[1][5]=10;
+        estados[2][0]=2;     estados[2][1]=2;       estados[2][2]=10;      estados[2][3]=10;    estados[2][4]=10;    estados[2][5]=10;
+        estados[3][0]=10;    estados[3][1]=3;       estados[3][2]=10;      estados[3][3]=10;    estados[3][4]=10;    estados[3][5]=4;
+        estados[4][0]=10;    estados[4][1]=5;       estados[4][2]=10;      estados[4][3]=10;    estados[4][4]=10;    estados[4][5]=10;
+        estados[5][0]=10;    estados[5][1]=5;       estados[5][2]=10;      estados[5][3]=10;    estados[5][4]=10;    estados[5][5]=10;
+        estados[6][0]=10;    estados[6][1]=10;      estados[6][2]=10;      estados[6][3]=10;    estados[6][4]=10;    estados[6][5]=10;
+        estados[7][0]=10;    estados[7][1]=10;      estados[7][2]=10;      estados[7][3]=10;    estados[7][4]=10;    estados[7][5]=10;
+        estados[8][0]=10;    estados[8][1]=10;      estados[8][2]=10;      estados[8][3]=10;    estados[8][4]=10;    estados[8][5]=10;
+        estados[10][0]=10;   estados[10][1]=10;     estados[10][2]=10;     estados[10][3]=10;   estados[10][4]=10;   estados[10][5]=10;
+        
+        
     }
 
     public Analizar(String linea, int numeroLinea) {
@@ -105,7 +103,7 @@ public class Analizar {
             posicion++;
         }
         System.out.println("Termino en el estado " + estadoActual + " con el id " + tmp);
-        
+        Aceptacion n = new Aceptacion(tmp,estadoActual);
         
         //verificar estado de aceptacion
     }
@@ -116,7 +114,7 @@ public class Analizar {
         int resultado = 10;        
         
         if(caracter >=0 && caracter <=5){
-            resultado = matriz[estadoActual][caracter];
+            resultado = estados[estadoActual][caracter];
         }
     
         return resultado;
@@ -154,7 +152,5 @@ public class Analizar {
         
         return resultado;
     }
-    
-    
-    
+ 
 }
