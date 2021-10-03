@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package automata;
-
 import manejoarchivos.ManejoArchivos;
 
 /**
@@ -19,20 +18,21 @@ public class Analizar {
     private int estados[][] = new int[11][6];
     private String linea;
     private int estadoActual =0;
-    private String path;
-    ManejoArchivos guardarMovimientos = new ManejoArchivos();
+    private String pathMovimientos;
+    private String pathErrores;
+    private String pathSinErrores;
+    private ManejoArchivos guardarMovimientos = new ManejoArchivos();
+    private ManejoArchivos errores = new ManejoArchivos();
     
     
     
     public void InicializarMatriz(){
-   
-        // filas del 0 al 5
-        //columnas del 0 al 6
-        
+          
         //estado inicial 0
         
         // alfabeto
         // letra -->0 , numero -->1  , SingoPuntuacion -->2 , 
+        
         //SignoAgrupacion -->3. signoOperador -->4 , punto --> 5
         
         //aceptacion
@@ -60,15 +60,17 @@ public class Analizar {
         
     }
 
-    public Analizar(String linea, int numeroLinea,String path) {
+    public Analizar(String linea, int numeroLinea,String pathMovimientos,String pathErrores,String pathSinErrores) {
         
-        this.path = path;
-        this.cantidadLineas = cantidadLineas;
         this.linea = linea;
+        this.pathMovimientos = pathMovimientos;
+        this.cantidadLineas = numeroLinea;
+        this.pathErrores = pathErrores;
+        this.pathSinErrores = pathSinErrores;
         this.numeroLinea = numeroLinea;
         InicializarMatriz();
         System.out.println("posicicon incial: " + posicion);
-        guardarMovimientos.AgregarAlArchivo(path + ".txt", "Linea a analizar: " + linea);
+        guardarMovimientos.AgregarAlArchivo(pathMovimientos + ".txt", "Linea a analizar: " + linea);
         while(posicion<linea.length()){
             getToken(linea,numeroLinea);
         }
@@ -81,9 +83,6 @@ public class Analizar {
         String tmp ="";
         estadoActual = 0;
         
-        //System.out.println("no. linea: " + numeroLinea + " texto: " + linea);
-        //System.out.println("cantidad de caracters:" + linea.length());
-
         //validando el texto ingresado
         
         
@@ -101,30 +100,42 @@ public class Analizar {
                 int estadoTemporal = getSiguienteEstado(estadoActual, getIntCaracter(linea.charAt(posicion)));
                 System.out.println("Estado actual "+ estadoActual + ", caracter a leer: " + linea.charAt(posicion)+ " transicion al estado: " + estadoTemporal);
                 
-                guardarMovimientos.AgregarAlArchivo(path + ".txt", "Estado actual "+ estadoActual + " caracter a leer: " + linea.charAt(posicion)+ " transicion al estado: " + estadoTemporal);
-                //System.out.println("no. caracter "+ posicion+" caracter: "+linea.charAt(posicion));
-                //System.out.println("Sin espacio:" + linea.charAt(posicion));
+                guardarMovimientos.AgregarAlArchivo(pathMovimientos + ".txt", "Estado actual "+ estadoActual + " caracter a leer: " + linea.charAt(posicion)+ " transicion al estado: " + estadoTemporal);
+                System.out.println("no. caracter "+ posicion+" caracter: "+linea.charAt(posicion));
+                System.out.println("Sin espacio:" + linea.charAt(posicion));
             
                 estadoActual = estadoTemporal;
                 
                 if(estadoActual==10){
+                    
                     System.out.println("error en la linea " + numeroLinea + "en la posisicion " + posicion);
-                    guardarMovimientos.AgregarAlArchivo(path + ".txt", "Error en la linea " + (numeroLinea+1) + " en la posicion " + (posicion+1));
+                    errores.AgregarAlArchivo(pathErrores+".txt",tmp +  "       (" + (numeroLinea+1) + "," + posicion + ")" );
+                    guardarMovimientos.AgregarAlArchivo(pathMovimientos + ".txt", "Error en la linea " + (numeroLinea+1) + " en la posicion " + (posicion+1));
                     lectura = false;
+                    
                 } else{
                     
-                    System.out.println("No hay error");
-                    guardarMovimientos.AgregarAlArchivo(path + ".txt", "Token valido");
+                    guardarMovimientos.AgregarAlArchivo(pathMovimientos + ".txt", "Siguiente lectura");
                 }
             }
-            //System.out.println("palabra completa sin espacios: "+tmp);
             
             posicion++;
         }
-        System.out.println("Termino en el estado " + estadoActual + " con el id " + tmp);
-        guardarMovimientos.AgregarAlArchivo(path + ".txt", "Termino en el estado " + estadoActual + " con el lexema " + tmp);
+        System.out.println("Termino en el estado " + estadoActual + " con el lexema " + tmp);
+        guardarMovimientos.AgregarAlArchivo(pathMovimientos + ".txt", "Termino en el estado " + estadoActual + " con el lexema " + tmp);
+        
         //verificar estado final
-        Aceptacion estadoFinal = new Aceptacion(tmp,estadoActual,path);
+        Aceptacion estadoFinal = new Aceptacion(tmp,estadoActual,pathMovimientos);
+         
+        if(estadoActual==10){
+            String tmplectura ="";
+         for(int i = posicion; i < linea.length();i++){
+                        tmplectura = tmplectura + String.valueOf(linea.charAt(i));
+                    }
+         guardarMovimientos.AgregarAlArchivo(pathMovimientos+".txt","Se leera "+ tmplectura);
+        } 
+        
+        
         
         
     }

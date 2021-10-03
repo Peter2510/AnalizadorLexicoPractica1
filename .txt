@@ -1,13 +1,18 @@
-Linea a analizar: puli1
+null        (0)(0)
+Estado actual 0 caracter a leer: 1 transicion al estado: 3
+Token valido
+El lexema 1 es un entero
+Cadena       Posicion
+Linea a analizar: pedro
 Estado actual 0 caracter a leer: p transicion al estado: 1
-Token valido
-Estado actual 1 caracter a leer: u transicion al estado: 1
-Token valido
-Estado actual 1 caracter a leer: l transicion al estado: 1
-Token valido
-Estado actual 1 caracter a leer: i transicion al estado: 1
-Token valido
-Estado actual 1 caracter a leer: 1 transicion al estado: 2
-Token valido
-Termino en el estado 2 con el lexema puli1
-El lexema puli1 es un id
+Siguiente lectura
+Estado actual 1 caracter a leer: e transicion al estado: 1
+Siguiente lectura
+Estado actual 1 caracter a leer: d transicion al estado: 1
+Siguiente lectura
+Estado actual 1 caracter a leer: r transicion al estado: 1
+Siguiente lectura
+Estado actual 1 caracter a leer: o transicion al estado: 1
+Siguiente lectura
+Termino en el estado 1 con el lexema pedro
+El lexema pedro es un id

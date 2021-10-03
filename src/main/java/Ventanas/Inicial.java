@@ -5,7 +5,6 @@
  */
 package Ventanas;
 
-import automata.Analizador;
 import automata.Analizar;
 import javax.swing.JOptionPane;
 import manejoarchivos.ManejoArchivos;
@@ -42,7 +41,7 @@ public class Inicial extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txt = new javax.swing.JTextArea();
-        Guardar = new javax.swing.JButton();
+        GuardarTextoSinErrores = new javax.swing.JButton();
         analizar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         MenuCargar = new javax.swing.JMenu();
@@ -56,10 +55,10 @@ public class Inicial extends javax.swing.JFrame {
         txt.setRows(5);
         jScrollPane1.setViewportView(txt);
 
-        Guardar.setText("jButton3");
-        Guardar.addActionListener(new java.awt.event.ActionListener() {
+        GuardarTextoSinErrores.setText("Guardar texto analizado sin errores");
+        GuardarTextoSinErrores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                GuardarActionPerformed(evt);
+                GuardarTextoSinErroresActionPerformed(evt);
             }
         });
 
@@ -78,8 +77,8 @@ public class Inicial extends javax.swing.JFrame {
                 .addGap(141, 141, 141)
                 .addComponent(analizar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Guardar)
-                .addGap(133, 133, 133))
+                .addComponent(GuardarTextoSinErrores)
+                .addGap(70, 70, 70))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -99,7 +98,7 @@ public class Inicial extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Guardar)
+                    .addComponent(GuardarTextoSinErrores)
                     .addComponent(analizar))
                 .addGap(35, 35, 35))
         );
@@ -136,43 +135,54 @@ public class Inicial extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
-
+    private void GuardarTextoSinErroresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarTextoSinErroresActionPerformed
+        
         ManejoArchivos manejo = new ManejoArchivos();
         String lectura = txt.getText();
         manejo.guardarArchivo(lectura);
 
-    }//GEN-LAST:event_GuardarActionPerformed
+    }//GEN-LAST:event_GuardarTextoSinErroresActionPerformed
 
     private void MenuCargarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuCargarMouseClicked
-
+        // se muestra la opcion para cargar el archivo de texto
         ManejoArchivos manejo = new ManejoArchivos();
-
         manejo.leerArchivoLinea();
     }//GEN-LAST:event_MenuCargarMouseClicked
 
     private void analizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analizarActionPerformed
-        
+        //se pide la ubicacion y nombre del archivo donde se guardaran las transiciones
         JOptionPane.showMessageDialog(null,"Selecciona una ubicacion para guardar la informacion de las transciciones");
         ManejoArchivos guardarMovimientos = new ManejoArchivos();
         String movimientos = "Movimientos";
-        String path = guardarMovimientos.guardarArchivo(movimientos);
+        String pathMovimientos = guardarMovimientos.guardarArchivo(movimientos);
         
-        System.out.println("path desde el incial + " + path);
+        //se pide la ubicacion y nombre del archivo donde se guardaran los posibles errores
+        JOptionPane.showMessageDialog(null,"Selecciona una ubicacion para guardar los posibles errores");
+        ManejoArchivos error = new ManejoArchivos();
+        String errores ="Errores";
+        String pathErrores = error.guardarArchivo(errores);
+        error.AgregarAlArchivo(pathErrores+".txt", "Cadena       Posicion");
         
-         String lectura = txt.getText();
- 
+        //se pide la ubicacion y el nombre del archivo que se generara si no hay errores
+        //en el analisis
+        
+        JOptionPane.showConfirmDialog(null, "Selecciona una ubicacion y nombre para guardar el documento si no hay errores en el analisis");
+        ManejoArchivos sinError = new ManejoArchivos();
+        String sinErrores = "Lexema      Token";
+        String pathSinError = sinError.guardarArchivo(sinErrores);
+        
+        //se obtiene el texto que esta dentro del text area
+        String lectura = txt.getText();
+        
          String[] lineas = lectura.split("\n");
          
-         //Analizador analizar = new Analizador(lineas.length);
-         
-         
-         
-         
+         //se manda linea a linea el texto para analizarse
+
          for (int i = 0; i < lineas.length; i++) {
              System.out.println("mande linea " + i);
-             //analizar.getToken(lineas[i],i);
-             Analizar n = new Analizar(lineas[i],i,path);
+             // se manda la linea, el numero de linea, el path del movimiento, el path de los errores 
+             // y el path del archivo si no hay errrores
+             Analizar n = new Analizar(lineas[i],i,pathMovimientos,pathErrores,pathSinError);
          
         }
          
@@ -189,7 +199,7 @@ public class Inicial extends javax.swing.JFrame {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Guardar;
+    private javax.swing.JButton GuardarTextoSinErrores;
     private javax.swing.JMenu MenuCargar;
     private javax.swing.JButton analizar;
     private javax.swing.JLabel jLabel1;
