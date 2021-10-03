@@ -19,6 +19,7 @@ public class ManejoArchivos {
     private String texto = "";
     private String lectura;
     private int seleccion;
+    
 
     public void crearArchivo(String nombreArchivo) {
 
@@ -122,8 +123,8 @@ public class ManejoArchivos {
         return texto;
     }
 
-    public void guardarArchivo(String lectura) {
-
+    public String guardarArchivo(String lectura) {
+        String path = "";
         JFileChooser ventanaSeleccionar = new JFileChooser();
 
         if (ventanaSeleccionar.showDialog(null, "Guardar") == JFileChooser.APPROVE_OPTION) {
@@ -132,12 +133,13 @@ public class ManejoArchivos {
 
             crearArchivo(archivo.getAbsolutePath() + ".txt");
             AgregarAlArchivo(archivo.getAbsolutePath() + ".txt", lectura);
-
+            path = archivo.getAbsolutePath();
             System.out.println("Archivo creado en " + archivo.getAbsolutePath());
 
             System.out.println("Nombre del archivo" + archivo.getName());
 
         }
+        return path;
     }
 
     public void leerArchivoLinea() {
@@ -186,4 +188,6 @@ public class ManejoArchivos {
         }
 
     }
+    
+  
 }

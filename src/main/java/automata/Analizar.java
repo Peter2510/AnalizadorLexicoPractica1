@@ -5,18 +5,22 @@
  */
 package automata;
 
+import manejoarchivos.ManejoArchivos;
+
 /**
  *
  * @author GORDILLO G
  */
 public class Analizar {
     
-    int numeroLinea;
-    int cantidadLineas = 0;
-    int posicion = 0;
-    int estados[][] = new int[11][6];
-    String linea;
-    int estadoActual =0;
+    private int numeroLinea;
+    private int cantidadLineas = 0;
+    private int posicion = 0;
+    private int estados[][] = new int[11][6];
+    private String linea;
+    private int estadoActual =0;
+    private String path;
+    ManejoArchivos guardarMovimientos = new ManejoArchivos();
     
     
     
@@ -56,14 +60,15 @@ public class Analizar {
         
     }
 
-    public Analizar(String linea, int numeroLinea) {
+    public Analizar(String linea, int numeroLinea,String path) {
         
+        this.path = path;
         this.cantidadLineas = cantidadLineas;
         this.linea = linea;
         this.numeroLinea = numeroLinea;
         InicializarMatriz();
         System.out.println("posicicon incial: " + posicion);
-        
+        guardarMovimientos.AgregarAlArchivo(path + ".txt", "Linea a analizar: " + linea);
         while(posicion<linea.length()){
             getToken(linea,numeroLinea);
         }
@@ -81,31 +86,47 @@ public class Analizar {
 
         //validando el texto ingresado
         
+        
         while((posicion<linea.length())&&(lectura==true)){
             
             if (Character.isSpaceChar(linea.charAt(posicion))) {
                 
                 System.out.println("Espacio en el numero*****: " +posicion);
                 lectura = false;
+                
             }
             else{
                 
-             tmp = tmp + String.valueOf(linea.charAt(posicion));
-                    int estadoTemporal = getSiguienteEstado(estadoActual, getIntCaracter(linea.charAt(posicion)));
-                System.out.println("Estado actual "+ estadoActual + "caracter: " + linea.charAt(posicion)+ " transicion a: " + estadoTemporal);
+                tmp = tmp + String.valueOf(linea.charAt(posicion));
+                int estadoTemporal = getSiguienteEstado(estadoActual, getIntCaracter(linea.charAt(posicion)));
+                System.out.println("Estado actual "+ estadoActual + ", caracter a leer: " + linea.charAt(posicion)+ " transicion al estado: " + estadoTemporal);
+                
+                guardarMovimientos.AgregarAlArchivo(path + ".txt", "Estado actual "+ estadoActual + " caracter a leer: " + linea.charAt(posicion)+ " transicion al estado: " + estadoTemporal);
                 //System.out.println("no. caracter "+ posicion+" caracter: "+linea.charAt(posicion));
                 //System.out.println("Sin espacio:" + linea.charAt(posicion));
-               
+            
                 estadoActual = estadoTemporal;
+                
+                if(estadoActual==10){
+                    System.out.println("error en la linea " + numeroLinea + "en la posisicion " + posicion);
+                    guardarMovimientos.AgregarAlArchivo(path + ".txt", "Error en la linea " + (numeroLinea+1) + " en la posicion " + (posicion+1));
+                    lectura = false;
+                } else{
+                    
+                    System.out.println("No hay error");
+                    guardarMovimientos.AgregarAlArchivo(path + ".txt", "Token valido");
+                }
             }
             //System.out.println("palabra completa sin espacios: "+tmp);
             
             posicion++;
         }
         System.out.println("Termino en el estado " + estadoActual + " con el id " + tmp);
-        Aceptacion n = new Aceptacion(tmp,estadoActual);
+        guardarMovimientos.AgregarAlArchivo(path + ".txt", "Termino en el estado " + estadoActual + " con el lexema " + tmp);
+        //verificar estado final
+        Aceptacion estadoFinal = new Aceptacion(tmp,estadoActual,path);
         
-        //verificar estado de aceptacion
+        
     }
     
     

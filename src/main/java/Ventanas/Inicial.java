@@ -7,6 +7,7 @@ package Ventanas;
 
 import automata.Analizador;
 import automata.Analizar;
+import javax.swing.JOptionPane;
 import manejoarchivos.ManejoArchivos;
 
 /**
@@ -152,20 +153,26 @@ public class Inicial extends javax.swing.JFrame {
 
     private void analizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analizarActionPerformed
         
+        JOptionPane.showMessageDialog(null,"Selecciona una ubicacion para guardar la informacion de las transciciones");
+        ManejoArchivos guardarMovimientos = new ManejoArchivos();
+        String movimientos = "Movimientos";
+        String path = guardarMovimientos.guardarArchivo(movimientos);
+        
+        System.out.println("path desde el incial + " + path);
         
          String lectura = txt.getText();
  
          String[] lineas = lectura.split("\n");
          
-         Analizador analizar = new Analizador(lineas.length);
+         //Analizador analizar = new Analizador(lineas.length);
          
          
          
          
          for (int i = 0; i < lineas.length; i++) {
              System.out.println("mande linea " + i);
-             analizar.getToken(lineas[i],i);
-             Analizar n = new Analizar(lineas[i],i);
+             //analizar.getToken(lineas[i],i);
+             Analizar n = new Analizar(lineas[i],i,path);
          
         }
          

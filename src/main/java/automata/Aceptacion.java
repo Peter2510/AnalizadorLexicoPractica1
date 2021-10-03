@@ -17,11 +17,14 @@ public class Aceptacion {
     int estado;
     String infoAceptacion [] = new String[11];
     ManejoArchivos guardar = new ManejoArchivos();
+    String path;
+    ManejoArchivos guardarMovimientos = new ManejoArchivos();
     
     
-    public Aceptacion(String lexema, int estado) {
+    public Aceptacion(String lexema, int estado, String path) {
         this.lexema=lexema;
         this.estado = estado;
+        this.path = path;
         inicializarMatriz();
         guardarTxt(lexema,estado);
     }
@@ -54,10 +57,12 @@ public class Aceptacion {
     
     public void guardarTxt(String lexema, int estado){
         
-        if( (estado>=1 && estado<10) && (estado!=4) ){
-            System.out.println("El lexema: " + lexema + "es un " + infoAceptacion[estado]);
+        if( (estado>=1 && estado<10) && (estado!=4) && (estado!=0)){
+            
+            guardarMovimientos.AgregarAlArchivo(path+".txt", "El lexema " + lexema +" es un " + infoAceptacion[estado]);
         }else{
-            System.out.println("El lexema es: " + lexema +"es un " + infoAceptacion[estado]);
+            
+            guardarMovimientos.AgregarAlArchivo(path+".txt", "El lexema " + lexema +" es un " + infoAceptacion[estado]);
         }    
       
                 
