@@ -19,9 +19,14 @@ public class Inicial extends javax.swing.JFrame {
      * Creates new form Inicial
      */
     NumeroLinea numeroLinea;
+    int contadorError=0;
+    int contadorFinalErrores=0;
+    
 
     public Inicial() {
         initComponents();
+        this.setTitle("Analizador lexico");
+        GuardarTextoSinErrores.setVisible(false);
         numeroLinea = new NumeroLinea(txt);
         jScrollPane1.setRowHeaderView(numeroLinea);
         this.setVisible(true);
@@ -46,6 +51,7 @@ public class Inicial extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         MenuCargar = new javax.swing.JMenu();
         menuLimpiar = new javax.swing.JMenu();
+        info = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -119,6 +125,14 @@ public class Inicial extends javax.swing.JFrame {
         });
         jMenuBar1.add(menuLimpiar);
 
+        info.setText("Info");
+        info.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                infoMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(info);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -166,7 +180,7 @@ public class Inicial extends javax.swing.JFrame {
         //se pide la ubicacion y el nombre del archivo que se generara si no hay errores
         //en el analisis
         
-        JOptionPane.showConfirmDialog(null, "Selecciona una ubicacion y nombre para guardar el documento si no hay errores en el analisis");
+        JOptionPane.showMessageDialog(null, "Selecciona una ubicacion y nombre para guardar el documento si no hay errores en el analisis");
         ManejoArchivos sinError = new ManejoArchivos();
         String sinErrores = "Lexema      Token";
         String pathSinError = sinError.guardarArchivo(sinErrores);
@@ -183,16 +197,25 @@ public class Inicial extends javax.swing.JFrame {
              // se manda la linea, el numero de linea, el path del movimiento, el path de los errores 
              // y el path del archivo si no hay errrores
              Analizar n = new Analizar(lineas[i],i,pathMovimientos,pathErrores,pathSinError);
-         
+             contadorError = n.getError();
+             contadorFinalErrores = contadorFinalErrores + contadorError;
         }
-         
-         
+         System.out.println("Contador Final de errores: " + contadorFinalErrores);
+         if (contadorFinalErrores==0) {
+            GuardarTextoSinErrores.setVisible(true);
+        }else{
+             GuardarTextoSinErrores.setVisible(false);
+         }
         
     }//GEN-LAST:event_analizarActionPerformed
 
     private void menuLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuLimpiarMouseClicked
         txt.setText("");
     }//GEN-LAST:event_menuLimpiarMouseClicked
+
+    private void infoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_infoMouseClicked
+       
+    }//GEN-LAST:event_infoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -202,6 +225,7 @@ public class Inicial extends javax.swing.JFrame {
     private javax.swing.JButton GuardarTextoSinErrores;
     private javax.swing.JMenu MenuCargar;
     private javax.swing.JButton analizar;
+    private javax.swing.JMenu info;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;

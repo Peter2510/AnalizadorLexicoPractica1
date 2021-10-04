@@ -23,10 +23,11 @@ public class Analizar {
     private String pathSinErrores;
     private ManejoArchivos guardarMovimientos = new ManejoArchivos();
     private ManejoArchivos errores = new ManejoArchivos();
+    private int marcarError =0;
     
     
     
-    public void InicializarMatriz(){
+    private void InicializarMatriz(){
           
         //estado inicial 0
         
@@ -77,7 +78,7 @@ public class Analizar {
         
     }
 
-    public void getToken(String linea, int numeroLinea) {
+    private void getToken(String linea, int numeroLinea) {
         
         boolean lectura = true;
         String tmp ="";
@@ -112,6 +113,7 @@ public class Analizar {
                     errores.AgregarAlArchivo(pathErrores+".txt",tmp +  "       (" + (numeroLinea+1) + "," + posicion + ")" );
                     guardarMovimientos.AgregarAlArchivo(pathMovimientos + ".txt", "Error en la linea " + (numeroLinea+1) + " en la posicion " + (posicion+1));
                     lectura = false;
+                    marcarError=1;
                     
                 } else{
                     
@@ -134,15 +136,12 @@ public class Analizar {
                     }
          guardarMovimientos.AgregarAlArchivo(pathMovimientos+".txt","Se leera "+ tmplectura);
         } 
-        
-        
-        
-        
+         
     }
     
     
     // moverse entre estados
-    public int getSiguienteEstado(int estadoActual, int caracter){
+    private int getSiguienteEstado(int estadoActual, int caracter){
         int resultado = 10;        
         
         if(caracter >=0 && caracter <=5){
@@ -153,7 +152,7 @@ public class Analizar {
     }
     
     // alfabeto del automata
-    public int getIntCaracter(char caracter){
+    private int getIntCaracter(char caracter){
         int resultado = 10;
         
         if(Character.isLetter(caracter)){
@@ -185,4 +184,7 @@ public class Analizar {
         return resultado;
     }
  
+    public int getError(){
+        return marcarError;
+    }
 }
