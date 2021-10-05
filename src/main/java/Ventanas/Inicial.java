@@ -176,11 +176,12 @@ public class Inicial extends javax.swing.JFrame {
         ManejoArchivos error = new ManejoArchivos();
         String errores ="Errores";
         String pathErrores = error.guardarArchivo(errores);
-        error.AgregarAlArchivo(pathErrores+".txt", "Cadena\t\t\tPosicion(fila,columna)");
+        error.AgregarAlArchivo(pathErrores+".txt", "Cadena\t\t\t\t\tPosicion(fila,columna)");
         
 
         //se obtiene el texto que esta dentro del text area
         String lectura = txt.getText();
+        System.out.println("lectura hecha" + lectura);
         
          String[] lineas = lectura.split("\n");
          
@@ -194,6 +195,7 @@ public class Inicial extends javax.swing.JFrame {
              contadorError = analizar.getError();
              //se cuenta el numero de errores obtenidos
              contadorFinalErrores = contadorFinalErrores + contadorError;
+             
         }
          
          //si no hay errores en el texto analizado se crea el archivo con los tokens y se habilita
@@ -206,11 +208,16 @@ public class Inicial extends javax.swing.JFrame {
              String path = sinError.guardarArchivo(sinErrores);
              Aceptacion ne = new Aceptacion(path);
              GuardarTextoSinErrores.setVisible(true);
-            
+             ne.vaciarListas();
         }else{
              GuardarTextoSinErrores.setVisible(false);
+             contadorFinalErrores = 0;
+             Aceptacion ne = new Aceptacion();
+             ne.vaciarListas();
+             
          }
-        
+         
+         
     }//GEN-LAST:event_analizarActionPerformed
 
     private void menuLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuLimpiarMouseClicked

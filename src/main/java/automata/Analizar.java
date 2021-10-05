@@ -51,13 +51,13 @@ public class Analizar {
         estados[1][0]=1;     estados[1][1]=2;       estados[1][2]=10;      estados[1][3]=10;    estados[1][4]=10;    estados[1][5]=10;
         estados[2][0]=2;     estados[2][1]=2;       estados[2][2]=10;      estados[2][3]=10;    estados[2][4]=10;    estados[2][5]=10;
         estados[3][0]=10;    estados[3][1]=3;       estados[3][2]=10;      estados[3][3]=10;    estados[3][4]=10;    estados[3][5]=4;
-        estados[4][0]=10;    estados[4][1]=5;       estados[4][2]=10;      estados[4][3]=10;    estados[4][4]=10;    estados[4][5]=10;
+        estados[4][0]=10;    estados[4][1]=5;       estados[4][2]=10;      estados[4][3]=10;    estados[4][4]=10;    estados[4][5]=10; 
         estados[5][0]=10;    estados[5][1]=5;       estados[5][2]=10;      estados[5][3]=10;    estados[5][4]=10;    estados[5][5]=10;
         estados[6][0]=10;    estados[6][1]=10;      estados[6][2]=10;      estados[6][3]=10;    estados[6][4]=10;    estados[6][5]=10;
         estados[7][0]=10;    estados[7][1]=10;      estados[7][2]=10;      estados[7][3]=10;    estados[7][4]=10;    estados[7][5]=10;
         estados[8][0]=10;    estados[8][1]=10;      estados[8][2]=10;      estados[8][3]=10;    estados[8][4]=10;    estados[8][5]=10;
         estados[10][0]=10;   estados[10][1]=10;     estados[10][2]=10;     estados[10][3]=10;   estados[10][4]=10;   estados[10][5]=10;
-        
+                                                        
         
     }
     // se recibe la linea a analizar, el path del archivo de los movimientos, el de los errores, el del archivo del 
@@ -71,7 +71,7 @@ public class Analizar {
         this.numeroLinea = numeroLinea;
         InicializarMatriz();
         System.out.println("posicicon incial: " + posicion);
-        guardarMovimientos.AgregarAlArchivo(pathMovimientos + ".txt", "Linea a analizar: " + linea);
+        guardarMovimientos.AgregarAlArchivo(pathMovimientos + ".txt", "\nLinea a analizar: " + linea);
         while(posicion<linea.length()){
             getToken(linea,numeroLinea);
         }
@@ -104,13 +104,16 @@ public class Analizar {
                           
                 estadoActual = estadoTemporal;
                 
+                
+                
                 if(estadoActual==10){
                     
-                    errores.AgregarAlArchivo(pathErrores+".txt",tmp +  "\t\t\t(" + (numeroLinea+1) + "," + posicion + ")" );
+                    errores.AgregarAlArchivo(pathErrores+".txt",tmp +  "\t\t\t\t\t(" + (numeroLinea+1) + "," + (posicion+1) + ")" );
                     guardarMovimientos.AgregarAlArchivo(pathMovimientos + ".txt", "Error en la linea " + (numeroLinea+1) + " en la posicion " + (posicion+1));
                     lectura = false;
                     marcarError=1;
                     erroresTotales = erroresTotales + marcarError;
+                    System.out.println("Error en la liena " + numeroLinea+1 + " en la psocicion " + posicion+1);
                     
                 } else{
                     
@@ -131,7 +134,7 @@ public class Analizar {
          for(int i = posicion; i < linea.length();i++){
                         tmplectura = tmplectura + String.valueOf(linea.charAt(i));
                     }
-         guardarMovimientos.AgregarAlArchivo(pathMovimientos+".txt","Se leera "+ tmplectura);
+         guardarMovimientos.AgregarAlArchivo(pathMovimientos+".txt","\nRECUPERACION DE ERRORES, Se leera: "+ tmplectura);
         } 
          
     }
