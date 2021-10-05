@@ -20,10 +20,10 @@ public class Analizar {
     private int estadoActual =0;
     private String pathMovimientos;
     private String pathErrores;
-    private String pathSinErrores;
     private ManejoArchivos guardarMovimientos = new ManejoArchivos();
     private ManejoArchivos errores = new ManejoArchivos();
     private int marcarError =0;
+    private int erroresTotales = 0;
     
     
     
@@ -60,14 +60,14 @@ public class Analizar {
         
         
     }
-
-    public Analizar(String linea, int numeroLinea,String pathMovimientos,String pathErrores,String pathSinErrores) {
+    // se recibe la linea a analizar, el path del archivo de los movimientos, el de los errores, el del archivo del 
+    //documento si no hay errores y el del archivo que guarda los tokens si no hay errores.
+    public Analizar(String linea, int numeroLinea,String pathMovimientos,String pathErrores) {
         
         this.linea = linea;
         this.pathMovimientos = pathMovimientos;
         this.cantidadLineas = numeroLinea;
         this.pathErrores = pathErrores;
-        this.pathSinErrores = pathSinErrores;
         this.numeroLinea = numeroLinea;
         InicializarMatriz();
         System.out.println("posicicon incial: " + posicion);
@@ -99,21 +99,18 @@ public class Analizar {
                 
                 tmp = tmp + String.valueOf(linea.charAt(posicion));
                 int estadoTemporal = getSiguienteEstado(estadoActual, getIntCaracter(linea.charAt(posicion)));
-                System.out.println("Estado actual "+ estadoActual + ", caracter a leer: " + linea.charAt(posicion)+ " transicion al estado: " + estadoTemporal);
                 
-                guardarMovimientos.AgregarAlArchivo(pathMovimientos + ".txt", "Estado actual "+ estadoActual + " caracter a leer: " + linea.charAt(posicion)+ " transicion al estado: " + estadoTemporal);
-                System.out.println("no. caracter "+ posicion+" caracter: "+linea.charAt(posicion));
-                System.out.println("Sin espacio:" + linea.charAt(posicion));
-            
+                guardarMovimientos.AgregarAlArchivo(pathMovimientos + ".txt", "Estado actual "+ estadoActual + " caracter a leer: " + linea.charAt(posicion)+ " transicion al estado: " + estadoTemporal + " al leer el caracter: " + linea.charAt(posicion));
+                          
                 estadoActual = estadoTemporal;
                 
                 if(estadoActual==10){
                     
-                    System.out.println("error en la linea " + numeroLinea + "en la posisicion " + posicion);
-                    errores.AgregarAlArchivo(pathErrores+".txt",tmp +  "       (" + (numeroLinea+1) + "," + posicion + ")" );
+                    errores.AgregarAlArchivo(pathErrores+".txt",tmp +  "\t\t\t(" + (numeroLinea+1) + "," + posicion + ")" );
                     guardarMovimientos.AgregarAlArchivo(pathMovimientos + ".txt", "Error en la linea " + (numeroLinea+1) + " en la posicion " + (posicion+1));
                     lectura = false;
                     marcarError=1;
+                    erroresTotales = erroresTotales + marcarError;
                     
                 } else{
                     
@@ -123,7 +120,7 @@ public class Analizar {
             
             posicion++;
         }
-        System.out.println("Termino en el estado " + estadoActual + " con el lexema " + tmp);
+        
         guardarMovimientos.AgregarAlArchivo(pathMovimientos + ".txt", "Termino en el estado " + estadoActual + " con el lexema " + tmp);
         
         //verificar estado final

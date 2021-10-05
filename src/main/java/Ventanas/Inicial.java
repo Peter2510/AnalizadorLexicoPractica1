@@ -5,6 +5,7 @@
  */
 package Ventanas;
 
+import automata.Aceptacion;
 import automata.Analizar;
 import javax.swing.JOptionPane;
 import manejoarchivos.ManejoArchivos;
@@ -175,16 +176,9 @@ public class Inicial extends javax.swing.JFrame {
         ManejoArchivos error = new ManejoArchivos();
         String errores ="Errores";
         String pathErrores = error.guardarArchivo(errores);
-        error.AgregarAlArchivo(pathErrores+".txt", "Cadena       Posicion");
+        error.AgregarAlArchivo(pathErrores+".txt", "Cadena\t\t\tPosicion(fila,columna)");
         
-        //se pide la ubicacion y el nombre del archivo que se generara si no hay errores
-        //en el analisis
-        
-        JOptionPane.showMessageDialog(null, "Selecciona una ubicacion y nombre para guardar el documento si no hay errores en el analisis");
-        ManejoArchivos sinError = new ManejoArchivos();
-        String sinErrores = "Lexema      Token";
-        String pathSinError = sinError.guardarArchivo(sinErrores);
-        
+
         //se obtiene el texto que esta dentro del text area
         String lectura = txt.getText();
         
@@ -196,13 +190,23 @@ public class Inicial extends javax.swing.JFrame {
              System.out.println("mande linea " + i);
              // se manda la linea, el numero de linea, el path del movimiento, el path de los errores 
              // y el path del archivo si no hay errrores
-             Analizar n = new Analizar(lineas[i],i,pathMovimientos,pathErrores,pathSinError);
-             contadorError = n.getError();
+             Analizar analizar = new Analizar(lineas[i],i,pathMovimientos,pathErrores);
+             contadorError = analizar.getError();
+             //se cuenta el numero de errores obtenidos
              contadorFinalErrores = contadorFinalErrores + contadorError;
         }
-         System.out.println("Contador Final de errores: " + contadorFinalErrores);
+         
+         //si no hay errores en el texto analizado se crea el archivo con los tokens y se habilita
+         //la opcion de generar la copia del texto que se analizo y no tiene erores
          if (contadorFinalErrores==0) {
-            GuardarTextoSinErrores.setVisible(true);
+             
+             JOptionPane.showMessageDialog(null, "Selecciona la ubicacion y nombre del archivo que contiene los tokens validos");
+             ManejoArchivos sinError = new ManejoArchivos();
+             String sinErrores = "Lexema\t\t\tTipo de token\t\t\tCantidad de repeticiones en el texto analizado";
+             String path = sinError.guardarArchivo(sinErrores);
+             Aceptacion ne = new Aceptacion(path);
+             GuardarTextoSinErrores.setVisible(true);
+            
         }else{
              GuardarTextoSinErrores.setVisible(false);
          }
