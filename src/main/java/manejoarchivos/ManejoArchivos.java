@@ -19,7 +19,6 @@ public class ManejoArchivos {
     private String texto = "";
     private String lectura;
     private int seleccion;
-    
 
     public void crearArchivo(String nombreArchivo) {
 
@@ -28,7 +27,7 @@ public class ManejoArchivos {
         try {
             PrintWriter salida = new PrintWriter(archivo);
             salida.close();
-            System.out.println("Archivo creado");
+            //System.out.println("Archivo creado");
         } catch (FileNotFoundException ex) {
             ex.printStackTrace(System.out);
         }
@@ -43,7 +42,7 @@ public class ManejoArchivos {
             PrintWriter salida = new PrintWriter(archivo);
             salida.println(contenido);
             salida.close();
-            System.out.println("Se escribio correctamente");
+            // System.out.println("Se escribio correctamente");
         } catch (FileNotFoundException ex) {
             ex.printStackTrace(System.out);
         }
@@ -58,7 +57,7 @@ public class ManejoArchivos {
             PrintWriter salida = new PrintWriter(new FileWriter(archivo, true));
             salida.println(contenido);
             salida.close();
-            System.out.println("Se ha agregado contenido correctamente");
+            //System.out.println("Se ha agregado contenido correctamente");
         } catch (FileNotFoundException ex) {
             ex.printStackTrace(System.out);
         } catch (IOException ex) {
@@ -134,10 +133,9 @@ public class ManejoArchivos {
             crearArchivo(archivo.getAbsolutePath() + ".txt");
             AgregarAlArchivo(archivo.getAbsolutePath() + ".txt", lectura);
             path = archivo.getAbsolutePath();
-            System.out.println("Archivo creado en " + archivo.getAbsolutePath());
+            // System.out.println("Archivo creado en " + archivo.getAbsolutePath());
 
-            System.out.println("Nombre del archivo" + archivo.getName());
-
+            //System.out.println("Nombre del archivo" + archivo.getName());
         }
         return path;
     }
@@ -162,7 +160,7 @@ public class ManejoArchivos {
                         String linea = entrada.readLine();
 
                         while (linea != null) {
-                            
+
                             Inicial.txt.append(linea + "\n");
                             linea = entrada.readLine();
                         }
@@ -185,9 +183,9 @@ public class ManejoArchivos {
 
             }
         } catch (Exception e) {
+            
         }
 
     }
-    
-  
+
 }

@@ -5,7 +5,8 @@
  */
 package Inicio;
 
-import Ventanas.Inicial;
+
+import Ventanas.*;
 
 
 /**
@@ -15,7 +16,8 @@ import Ventanas.Inicial;
 public class Inicio {
     
     public static void main(String[] args) {
-        Inicial inicio = new Inicial();
+        //Inicial e = new Inicial();
+        Info er = new Info();
     }
     
     

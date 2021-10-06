@@ -97,7 +97,7 @@ public class Aceptacion {
             tokensValidos.add(lexema);
             infoTokensValidos.add(infoAceptacion[estado]);
             infoPosicion.add(posicion);
-            System.out.println("Guarde el lexema" + lexema);
+            //System.out.println("Guarde el lexema" + lexema);
 
         } else {
 
@@ -109,24 +109,24 @@ public class Aceptacion {
 
     //se escribe en el archvio de texto creado los lexemas que se encontraron, la inforamcion y el numero de veces que aparece
     public void Recuento(String path2,int num) {
-        System.out.println("tamaño en el recuento" + unicos.size());
+        //System.out.println("tamaño en el recuento" + unicos.size());
         
-        System.out.println("Entre al recuento");
+        //System.out.println("Entre al recuento");
         for (int i = 0; i < unicos.size(); i++) {
 
             guardarTokensUnicos.AgregarAlArchivo(path2 + ".txt", unicos.get(i) + "\t\t\t" + infoUnicos.get(i) + "\t\t\t\t" + Collections.frequency(tokensValidos, unicos.get(i)));
-            System.out.println("veces repetido " + Collections.frequency(tokensValidos, unicos.get(i)));
-            System.out.println("Posicion " + i + " token " + unicos.get(i) + " es un " + infoUnicos.get(i));
-            System.out.println("Recuendo no " + i);
+            //System.out.println("veces repetido " + Collections.frequency(tokensValidos, unicos.get(i)));
+            //System.out.println("Posicion " + i + " token " + unicos.get(i) + " es un " + infoUnicos.get(i));
+            //System.out.println("Recuendo no " + i);
         }
         vaciarListas();
-        System.out.println("num " + num);
+       // System.out.println("num " + num);
     }
     
     public void reporteSinError(String path1){
-      System.out.println("tamaño en el recuento" + unicos.size());
+     // System.out.println("tamaño en el recuento" + unicos.size());
         eliminarDuplicados();
-        System.out.println("Entre al recuento");
+        //System.out.println("Entre al recuento");
         
         for (int i = 0; i < unicos.size(); i++) {
 

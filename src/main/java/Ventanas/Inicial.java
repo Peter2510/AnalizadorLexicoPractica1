@@ -49,6 +49,9 @@ public class Inicial extends javax.swing.JFrame {
         txt = new javax.swing.JTextArea();
         GuardarTextoSinErrores = new javax.swing.JButton();
         analizar = new javax.swing.JButton();
+        txtBuscar = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        btnbuscar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         MenuCargar = new javax.swing.JMenu();
         menuLimpiar = new javax.swing.JMenu();
@@ -56,7 +59,7 @@ public class Inicial extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Analizador Lexico");
+        jLabel1.setText("ANALIZADOR LÉXICO");
 
         txt.setColumns(20);
         txt.setRows(5);
@@ -76,6 +79,15 @@ public class Inicial extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setText("Buscar palabra:");
+
+        btnbuscar.setText("Buscar");
+        btnbuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnbuscarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -83,31 +95,43 @@ public class Inicial extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(264, 264, 264)
+                        .addGap(278, 278, 278)
                         .addComponent(jLabel1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(290, 290, 290)
+                        .addGap(225, 225, 225)
+                        .addComponent(GuardarTextoSinErrores))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(295, 295, 295)
                         .addComponent(analizar))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(217, 217, 217)
-                        .addComponent(GuardarTextoSinErrores)))
-                .addContainerGap(47, Short.MAX_VALUE))
+                        .addGap(43, 43, 43)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnbuscar))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addGap(23, 23, 23)
                 .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(analizar)
                 .addGap(18, 18, 18)
                 .addComponent(GuardarTextoSinErrores)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addGap(26, 26, 26))
         );
 
         MenuCargar.setText("Cargar archivo");
@@ -144,9 +168,7 @@ public class Inicial extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 11, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -170,7 +192,7 @@ public class Inicial extends javax.swing.JFrame {
     private void analizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analizarActionPerformed
         Aceptacion ne = new Aceptacion();
         ne.vaciarListas();
-        System.out.println("vacie las cosas incio");
+        //System.out.println("vacie las cosas incio");
         //se pide la ubicacion y nombre del archivo donde se guardaran las transiciones
         JOptionPane.showMessageDialog(null, "Selecciona una ubicacion para guardar la informacion de las transciciones");
         ManejoArchivos guardarMovimientos = new ManejoArchivos();
@@ -186,13 +208,13 @@ public class Inicial extends javax.swing.JFrame {
 
         //se obtiene el texto que esta dentro del text area
         String lectura = txt.getText();
-        System.out.println("lectura hecha" + lectura);
+        //System.out.println("lectura hecha" + lectura);
 
         String[] lineas = lectura.split("\n");
 
         //se manda linea a linea el texto para analizarse
         for (int i = 0; i < lineas.length; i++) {
-            System.out.println("mande linea " + i);
+           // System.out.println("mande linea " + i);
             // se manda la linea, el numero de linea, el path del movimiento, el path de los errores 
             // y el path del archivo si no hay errrores
             Analizar analizar = new Analizar(lineas[i], i, pathMovimientos, pathErrores);
@@ -212,9 +234,10 @@ public class Inicial extends javax.swing.JFrame {
             String Reporte = "Tipo token \t\t\tLexema\t\t\tPosicion(linea,columna)";
             String path = ArchivoReporte.guardarArchivo(Reporte);
             Aceptacion recuentoTotal = new Aceptacion(path);
-            
+            JOptionPane.showMessageDialog(null,"No se encontraron errores, se habilito la opcion del recuento de tokens");
             GuardarTextoSinErrores.setVisible(true);
             recuento.setVisible(true);
+            
         } else {
             GuardarTextoSinErrores.setVisible(false);
             contadorFinalErrores = 0;
@@ -240,6 +263,12 @@ public class Inicial extends javax.swing.JFrame {
 
     }//GEN-LAST:event_recuentoMouseClicked
 
+    private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
+        String aBuscar = txtBuscar.getText();
+        String texto = txt.getText();
+        
+    }//GEN-LAST:event_btnbuscarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -248,12 +277,15 @@ public class Inicial extends javax.swing.JFrame {
     private javax.swing.JButton GuardarTextoSinErrores;
     private javax.swing.JMenu MenuCargar;
     private javax.swing.JButton analizar;
+    private javax.swing.JButton btnbuscar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenu menuLimpiar;
     private javax.swing.JMenu recuento;
     public static javax.swing.JTextArea txt;
+    private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }
