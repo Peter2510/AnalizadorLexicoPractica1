@@ -91,10 +91,8 @@ public class Analizar {
         while((posicion<linea.length())&&(lectura==true)){
             
             if (Character.isSpaceChar(linea.charAt(posicion))) {
-                
-                
+               
                 lectura = false;
-                
             }
             else{
                 

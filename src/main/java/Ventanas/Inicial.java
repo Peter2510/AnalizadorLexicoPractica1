@@ -9,6 +9,7 @@ import automata.Aceptacion;
 import automata.Analizar;
 import javax.swing.JOptionPane;
 import manejoarchivos.ManejoArchivos;
+import patrones.Patrones;
 
 /**
  *
@@ -190,62 +191,69 @@ public class Inicial extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuCargarMouseClicked
 
     private void analizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analizarActionPerformed
-        Aceptacion ne = new Aceptacion();
-        ne.vaciarListas();
-        //System.out.println("vacie las cosas incio");
-        //se pide la ubicacion y nombre del archivo donde se guardaran las transiciones
-        JOptionPane.showMessageDialog(null, "Selecciona una ubicacion para guardar la informacion de las transciciones");
-        ManejoArchivos guardarMovimientos = new ManejoArchivos();
-        String movimientos = "Movimientos";
-        String pathMovimientos = guardarMovimientos.guardarArchivo(movimientos);
 
-        //se pide la ubicacion y nombre del archivo donde se guardaran los posibles errores
-        JOptionPane.showMessageDialog(null, "Selecciona una ubicacion para guardar los posibles errores");
-        ManejoArchivos error = new ManejoArchivos();
-        String errores = "Errores";
-        String pathErrores = error.guardarArchivo(errores);
-        error.AgregarAlArchivo(pathErrores + ".txt", "Cadena\t\t\t\t\tPosicion(fila,columna)");
+        String txtIngresado = txt.getText();
 
-        //se obtiene el texto que esta dentro del text area
-        String lectura = txt.getText();
-        //System.out.println("lectura hecha" + lectura);
+        if (txtIngresado.length() > 0) {
 
-        String[] lineas = lectura.split("\n");
-
-        //se manda linea a linea el texto para analizarse
-        for (int i = 0; i < lineas.length; i++) {
-           // System.out.println("mande linea " + i);
-            // se manda la linea, el numero de linea, el path del movimiento, el path de los errores 
-            // y el path del archivo si no hay errrores
-            Analizar analizar = new Analizar(lineas[i], i, pathMovimientos, pathErrores);
-            contadorError = analizar.getError();
-            //se cuenta el numero de errores obtenidos
-            contadorFinalErrores = contadorFinalErrores + contadorError;
-
-        }
-        
-        
-        //si no hay errores en el texto analizado se crea el archivo con los tokens y se habilita
-        //la opcion de generar la copia del texto que se analizo y no tiene erores
-        if (contadorFinalErrores == 0) {
-
-           JOptionPane.showMessageDialog(null, "Selecciona la ubicacion y nombre del archivo que contiene el reporte");
-            ManejoArchivos ArchivoReporte = new ManejoArchivos();
-            String Reporte = "Tipo token \t\t\tLexema\t\t\tPosicion(linea,columna)";
-            String path = ArchivoReporte.guardarArchivo(Reporte);
-            Aceptacion recuentoTotal = new Aceptacion(path);
-            JOptionPane.showMessageDialog(null,"No se encontraron errores, se habilito la opcion del recuento de tokens");
-            GuardarTextoSinErrores.setVisible(true);
-            recuento.setVisible(true);
-            
-        } else {
-            GuardarTextoSinErrores.setVisible(false);
-            contadorFinalErrores = 0;
-            recuento.setVisible(false);
+            Aceptacion ne = new Aceptacion();
             ne.vaciarListas();
+            //System.out.println("vacie las cosas incio");
+            //se pide la ubicacion y nombre del archivo donde se guardaran las transiciones
+            JOptionPane.showMessageDialog(null, "Selecciona una ubicacion para guardar la informacion de las transciciones");
+            ManejoArchivos guardarMovimientos = new ManejoArchivos();
+            String movimientos = "Movimientos";
+            String pathMovimientos = guardarMovimientos.guardarArchivo(movimientos);
 
+            //se pide la ubicacion y nombre del archivo donde se guardaran los posibles errores
+            JOptionPane.showMessageDialog(null, "Selecciona una ubicacion para guardar los posibles errores");
+            ManejoArchivos error = new ManejoArchivos();
+            String errores = "Errores";
+            String pathErrores = error.guardarArchivo(errores);
+            error.AgregarAlArchivo(pathErrores + ".txt", "Cadena\t\t\t\t\tPosicion(fila,columna)");
+
+            //se obtiene el texto que esta dentro del text area
+            String lectura = txt.getText();
+            //System.out.println("lectura hecha" + lectura);
+
+            String[] lineas = lectura.split("\n");
+
+            //se manda linea a linea el texto para analizarse
+            for (int i = 0; i < lineas.length; i++) {
+                // System.out.println("mande linea " + i);
+                // se manda la linea, el numero de linea, el path del movimiento, el path de los errores 
+                // y el path del archivo si no hay errrores
+                Analizar analizar = new Analizar(lineas[i], i, pathMovimientos, pathErrores);
+                contadorError = analizar.getError();
+                //se cuenta el numero de errores obtenidos
+                contadorFinalErrores = contadorFinalErrores + contadorError;
+
+            }
+
+            //si no hay errores en el texto analizado se crea el archivo con los tokens y se habilita
+            //la opcion de generar la copia del texto que se analizo y no tiene erores
+            if (contadorFinalErrores == 0) {
+
+                JOptionPane.showMessageDialog(null, "Selecciona la ubicacion y nombre del archivo que contiene el reporte");
+                ManejoArchivos ArchivoReporte = new ManejoArchivos();
+                String Reporte = "Tipo token \t\t\tLexema\t\t\tPosicion(linea,columna)";
+                String path = ArchivoReporte.guardarArchivo(Reporte);
+                Aceptacion recuentoTotal = new Aceptacion(path);
+                JOptionPane.showMessageDialog(null, "No se encontraron errores, se habilito la opcion del recuento de tokens");
+                GuardarTextoSinErrores.setVisible(true);
+                recuento.setVisible(true);
+
+            } else {
+                GuardarTextoSinErrores.setVisible(false);
+                contadorFinalErrores = 0;
+                recuento.setVisible(false);
+                ne.vaciarListas();
+
+            }
+
+        }else{
+            JOptionPane.showMessageDialog(null,"Ingresa texto para analizar");
         }
-
 
     }//GEN-LAST:event_analizarActionPerformed
 
@@ -258,15 +266,22 @@ public class Inicial extends javax.swing.JFrame {
         ManejoArchivos ArchivoRecuento = new ManejoArchivos();
         String sinErrores = "Lexema\t\t\tTipo de token\t\t\tCantidad de repeticiones en el texto analizado";
         String path = ArchivoRecuento.guardarArchivo(sinErrores);
-        Aceptacion recuentoTotal = new Aceptacion(path,2);
+        Aceptacion recuentoTotal = new Aceptacion(path, 2);
 
 
     }//GEN-LAST:event_recuentoMouseClicked
 
     private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
         String aBuscar = txtBuscar.getText();
-        String texto = txt.getText();
-        
+        String textoTotal = txt.getText();
+
+        if (textoTotal.length() > 0 && aBuscar.length()>0) {
+            Patrones patron = new Patrones(aBuscar, textoTotal);
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay texto para buscar lo solicitado");
+        }
+
+
     }//GEN-LAST:event_btnbuscarActionPerformed
 
     /**
