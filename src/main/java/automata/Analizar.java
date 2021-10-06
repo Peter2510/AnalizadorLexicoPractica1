@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -91,7 +92,7 @@ public class Analizar {
             
             if (Character.isSpaceChar(linea.charAt(posicion))) {
                 
-                System.out.println("Espacio en el numero*****: " +posicion);
+                
                 lectura = false;
                 
             }
@@ -104,8 +105,7 @@ public class Analizar {
                           
                 estadoActual = estadoTemporal;
                 
-                
-                
+                                
                 if(estadoActual==10){
                     
                     errores.AgregarAlArchivo(pathErrores+".txt",tmp +  "\t\t\t\t\t(" + (numeroLinea+1) + "," + (posicion+1) + ")" );
@@ -113,7 +113,7 @@ public class Analizar {
                     lectura = false;
                     marcarError=1;
                     erroresTotales = erroresTotales + marcarError;
-                    System.out.println("Error en la liena " + numeroLinea+1 + " en la psocicion " + posicion+1);
+                    System.out.println("Error en la liena " + (numeroLinea+1) + " en la psocicion " + (posicion+1));
                     
                 } else{
                     
@@ -127,7 +127,13 @@ public class Analizar {
         guardarMovimientos.AgregarAlArchivo(pathMovimientos + ".txt", "Termino en el estado " + estadoActual + " con el lexema " + tmp);
         
         //verificar estado final
-        Aceptacion estadoFinal = new Aceptacion(tmp,estadoActual,pathMovimientos);
+        
+        String posFila = String.valueOf(posicion);
+        String posCol = String.valueOf(numeroLinea);
+        String posFinal = posFila + "," + posCol;
+        
+        
+        Aceptacion estadoFinal = new Aceptacion(tmp,estadoActual,pathMovimientos,posFinal);
          
         if(estadoActual==10){
             String tmplectura ="";

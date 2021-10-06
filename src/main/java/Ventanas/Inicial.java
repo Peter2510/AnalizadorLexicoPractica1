@@ -20,14 +20,14 @@ public class Inicial extends javax.swing.JFrame {
      * Creates new form Inicial
      */
     NumeroLinea numeroLinea;
-    int contadorError=0;
-    int contadorFinalErrores=0;
-    
+    int contadorError = 0;
+    int contadorFinalErrores = 0;
 
     public Inicial() {
         initComponents();
         this.setTitle("Analizador lexico");
         GuardarTextoSinErrores.setVisible(false);
+        recuento.setVisible(false);
         numeroLinea = new NumeroLinea(txt);
         jScrollPane1.setRowHeaderView(numeroLinea);
         this.setVisible(true);
@@ -52,7 +52,7 @@ public class Inicial extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         MenuCargar = new javax.swing.JMenu();
         menuLimpiar = new javax.swing.JMenu();
-        info = new javax.swing.JMenu();
+        recuento = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,19 +81,19 @@ public class Inicial extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(141, 141, 141)
-                .addComponent(analizar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(GuardarTextoSinErrores)
-                .addGap(70, 70, 70))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(247, 247, 247)
+                        .addGap(41, 41, 41)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(264, 264, 264)
                         .addComponent(jLabel1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(290, 290, 290)
+                        .addComponent(analizar))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(217, 217, 217)
+                        .addComponent(GuardarTextoSinErrores)))
                 .addContainerGap(47, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -103,11 +103,11 @@ public class Inicial extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(GuardarTextoSinErrores)
-                    .addComponent(analizar))
-                .addGap(35, 35, 35))
+                .addGap(18, 18, 18)
+                .addComponent(analizar)
+                .addGap(18, 18, 18)
+                .addComponent(GuardarTextoSinErrores)
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         MenuCargar.setText("Cargar archivo");
@@ -126,13 +126,13 @@ public class Inicial extends javax.swing.JFrame {
         });
         jMenuBar1.add(menuLimpiar);
 
-        info.setText("Info");
-        info.addMouseListener(new java.awt.event.MouseAdapter() {
+        recuento.setText("Recuento de lexemas");
+        recuento.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                infoMouseClicked(evt);
+                recuentoMouseClicked(evt);
             }
         });
-        jMenuBar1.add(info);
+        jMenuBar1.add(recuento);
 
         setJMenuBar(jMenuBar1);
 
@@ -144,17 +144,20 @@ public class Inicial extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 11, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void GuardarTextoSinErroresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarTextoSinErroresActionPerformed
-        
+
         ManejoArchivos manejo = new ManejoArchivos();
         String lectura = txt.getText();
         manejo.guardarArchivo(lectura);
+
 
     }//GEN-LAST:event_GuardarTextoSinErroresActionPerformed
 
@@ -165,68 +168,77 @@ public class Inicial extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuCargarMouseClicked
 
     private void analizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analizarActionPerformed
+        Aceptacion ne = new Aceptacion();
+        ne.vaciarListas();
+        System.out.println("vacie las cosas incio");
         //se pide la ubicacion y nombre del archivo donde se guardaran las transiciones
-        JOptionPane.showMessageDialog(null,"Selecciona una ubicacion para guardar la informacion de las transciciones");
+        JOptionPane.showMessageDialog(null, "Selecciona una ubicacion para guardar la informacion de las transciciones");
         ManejoArchivos guardarMovimientos = new ManejoArchivos();
         String movimientos = "Movimientos";
         String pathMovimientos = guardarMovimientos.guardarArchivo(movimientos);
-        
+
         //se pide la ubicacion y nombre del archivo donde se guardaran los posibles errores
-        JOptionPane.showMessageDialog(null,"Selecciona una ubicacion para guardar los posibles errores");
+        JOptionPane.showMessageDialog(null, "Selecciona una ubicacion para guardar los posibles errores");
         ManejoArchivos error = new ManejoArchivos();
-        String errores ="Errores";
+        String errores = "Errores";
         String pathErrores = error.guardarArchivo(errores);
-        error.AgregarAlArchivo(pathErrores+".txt", "Cadena\t\t\t\t\tPosicion(fila,columna)");
-        
+        error.AgregarAlArchivo(pathErrores + ".txt", "Cadena\t\t\t\t\tPosicion(fila,columna)");
 
         //se obtiene el texto que esta dentro del text area
         String lectura = txt.getText();
         System.out.println("lectura hecha" + lectura);
-        
-         String[] lineas = lectura.split("\n");
-         
-         //se manda linea a linea el texto para analizarse
 
-         for (int i = 0; i < lineas.length; i++) {
-             System.out.println("mande linea " + i);
-             // se manda la linea, el numero de linea, el path del movimiento, el path de los errores 
-             // y el path del archivo si no hay errrores
-             Analizar analizar = new Analizar(lineas[i],i,pathMovimientos,pathErrores);
-             contadorError = analizar.getError();
-             //se cuenta el numero de errores obtenidos
-             contadorFinalErrores = contadorFinalErrores + contadorError;
-             
+        String[] lineas = lectura.split("\n");
+
+        //se manda linea a linea el texto para analizarse
+        for (int i = 0; i < lineas.length; i++) {
+            System.out.println("mande linea " + i);
+            // se manda la linea, el numero de linea, el path del movimiento, el path de los errores 
+            // y el path del archivo si no hay errrores
+            Analizar analizar = new Analizar(lineas[i], i, pathMovimientos, pathErrores);
+            contadorError = analizar.getError();
+            //se cuenta el numero de errores obtenidos
+            contadorFinalErrores = contadorFinalErrores + contadorError;
+
         }
-         
-         //si no hay errores en el texto analizado se crea el archivo con los tokens y se habilita
-         //la opcion de generar la copia del texto que se analizo y no tiene erores
-         if (contadorFinalErrores==0) {
-             
-             JOptionPane.showMessageDialog(null, "Selecciona la ubicacion y nombre del archivo que contiene los tokens validos");
-             ManejoArchivos sinError = new ManejoArchivos();
-             String sinErrores = "Lexema\t\t\tTipo de token\t\t\tCantidad de repeticiones en el texto analizado";
-             String path = sinError.guardarArchivo(sinErrores);
-             Aceptacion ne = new Aceptacion(path);
-             GuardarTextoSinErrores.setVisible(true);
-             ne.vaciarListas();
-        }else{
-             GuardarTextoSinErrores.setVisible(false);
-             contadorFinalErrores = 0;
-             Aceptacion ne = new Aceptacion();
-             ne.vaciarListas();
-             
-         }
-         
-         
+        
+        
+        //si no hay errores en el texto analizado se crea el archivo con los tokens y se habilita
+        //la opcion de generar la copia del texto que se analizo y no tiene erores
+        if (contadorFinalErrores == 0) {
+
+           JOptionPane.showMessageDialog(null, "Selecciona la ubicacion y nombre del archivo que contiene el reporte");
+            ManejoArchivos ArchivoReporte = new ManejoArchivos();
+            String Reporte = "Tipo token \t\t\tLexema\t\t\tPosicion";
+            String path = ArchivoReporte.guardarArchivo(Reporte);
+            Aceptacion recuentoTotal = new Aceptacion(path);
+            
+            GuardarTextoSinErrores.setVisible(true);
+            recuento.setVisible(true);
+        } else {
+            GuardarTextoSinErrores.setVisible(false);
+            contadorFinalErrores = 0;
+            recuento.setVisible(false);
+            ne.vaciarListas();
+
+        }
+
+
     }//GEN-LAST:event_analizarActionPerformed
 
     private void menuLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuLimpiarMouseClicked
         txt.setText("");
     }//GEN-LAST:event_menuLimpiarMouseClicked
 
-    private void infoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_infoMouseClicked
-       
-    }//GEN-LAST:event_infoMouseClicked
+    private void recuentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_recuentoMouseClicked
+        JOptionPane.showMessageDialog(null, "Selecciona la ubicacion y nombre del archivo que contiene los tokens validos");
+        ManejoArchivos ArchivoRecuento = new ManejoArchivos();
+        String sinErrores = "Lexema\t\t\tTipo de token\t\t\tCantidad de repeticiones en el texto analizado";
+        String path = ArchivoRecuento.guardarArchivo(sinErrores);
+        Aceptacion recuentoTotal = new Aceptacion(path,2);
+
+
+    }//GEN-LAST:event_recuentoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -236,12 +248,12 @@ public class Inicial extends javax.swing.JFrame {
     private javax.swing.JButton GuardarTextoSinErrores;
     private javax.swing.JMenu MenuCargar;
     private javax.swing.JButton analizar;
-    private javax.swing.JMenu info;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenu menuLimpiar;
+    private javax.swing.JMenu recuento;
     public static javax.swing.JTextArea txt;
     // End of variables declaration//GEN-END:variables
 }
