@@ -128,8 +128,8 @@ public class Analizar {
         
         //verificar estado final
         
-        String posFila = String.valueOf(posicion);
-        String posCol = String.valueOf(numeroLinea);
+        String posFila = String.valueOf(posicion-1);
+        String posCol = String.valueOf(numeroLinea+1);
         String posFinal = posFila + "," + posCol;
         
         

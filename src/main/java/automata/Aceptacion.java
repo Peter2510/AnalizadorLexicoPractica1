@@ -93,7 +93,7 @@ public class Aceptacion {
         } */
         if ((estado > 0 && estado < 10) && !(estado == 4)) {
             guardarMovimientos.AgregarAlArchivo(pathMovimientos + ".txt", "El lexema " + lexema + " es un " + infoAceptacion[estado] + "\n");
-
+            guardarMovimientos.AgregarAlArchivo(pathMovimientos + ".txt", "Siguiente lectura");
             tokensValidos.add(lexema);
             infoTokensValidos.add(infoAceptacion[estado]);
             infoPosicion.add(posicion);
@@ -102,6 +102,7 @@ public class Aceptacion {
         } else {
 
             guardarMovimientos.AgregarAlArchivo(pathMovimientos + ".txt", "El lexema " + lexema + " es un " + infoAceptacion[estado]);
+            guardarMovimientos.AgregarAlArchivo(pathMovimientos + ".txt", "Siguiente lectura");
         }
 
     }
@@ -129,7 +130,7 @@ public class Aceptacion {
         
         for (int i = 0; i < unicos.size(); i++) {
 
-            guardarReporte.AgregarAlArchivo(path1 + ".txt", infoUnicos.get(i) + "\t\t\t"+ unicos.get(i) + "\t\t\t"+infoPosicionUnicos.get(i));
+            guardarReporte.AgregarAlArchivo(path1 + ".txt", infoTokensValidos.get(i) + "\t\t"+ tokensValidos.get(i) + "\t\t\t\t"+ infoPosicion.get(i));
             
         }
         

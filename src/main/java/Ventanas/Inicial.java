@@ -209,7 +209,7 @@ public class Inicial extends javax.swing.JFrame {
 
            JOptionPane.showMessageDialog(null, "Selecciona la ubicacion y nombre del archivo que contiene el reporte");
             ManejoArchivos ArchivoReporte = new ManejoArchivos();
-            String Reporte = "Tipo token \t\t\tLexema\t\t\tPosicion";
+            String Reporte = "Tipo token \t\t\tLexema\t\t\tPosicion(linea,columna)";
             String path = ArchivoReporte.guardarArchivo(Reporte);
             Aceptacion recuentoTotal = new Aceptacion(path);
             
