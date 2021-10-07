@@ -20,9 +20,9 @@ public class Inicial extends javax.swing.JFrame {
     /**
      * Creates new form Inicial
      */
-    NumeroLinea numeroLinea;
-    int contadorError = 0;
-    int contadorFinalErrores = 0;
+    private NumeroLinea numeroLinea;
+    private int contadorError = 0;
+    private int contadorFinalErrores = 0;
 
     public Inicial() {
         initComponents();
