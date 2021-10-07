@@ -5,6 +5,8 @@
  */
 package patrones;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author GORDILLO G
@@ -43,6 +45,7 @@ public class Patrones {
                 
                 if(contador==buscar.length()){
                     System.out.println("Enncontrado");
+                    JOptionPane.showMessageDialog(null, "Se encontro la cadena " + buscar);
                     return true;
                 }
                 
@@ -51,7 +54,7 @@ public class Patrones {
             
         }
         
-        System.out.println("no ecn");
+        JOptionPane.showMessageDialog(null, "No se encontro la cadena " + buscar);
         return false;
     }
 }
